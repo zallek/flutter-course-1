@@ -6,22 +6,23 @@ void main() {
 
 class MyApp extends StatefulWidget {
   @override
-  MyAppState createState() => MyAppState();
+  _MyAppState createState() => _MyAppState();
 }
 
-class MyAppState extends State<MyApp> {
-  var questionIndex = 0;
-  var questions = [
+class _MyAppState extends State<MyApp> {
+  var _questionIndex = 0;
+  var _questions = [
     'What\'s your favorite color?',
     'What\'s your favorite animal?',
   ];
 
-  void answerQuestion(int choice) {
+  void _answerQuestion(int choice) {
     print('Answer choosen $choice');
     setState(() {
-      questionIndex = questionIndex >= questions.length - 1 ? 0 : questionIndex + 1;
+      _questionIndex =
+          _questionIndex >= _questions.length - 1 ? 0 : _questionIndex + 1;
     });
-    print(questionIndex);
+    print(_questionIndex);
   }
 
   @override
@@ -33,18 +34,20 @@ class MyAppState extends State<MyApp> {
         ),
         body: Column(
           children: [
-            Text(questions[questionIndex]),
+            Text(
+              _questions[_questionIndex],
+            ),
             RaisedButton(
               child: Text('Answer 1'),
-              onPressed: () => answerQuestion(1),
+              onPressed: () => _answerQuestion(1),
             ),
             RaisedButton(
               child: Text('Answer 2'),
-              onPressed: () => answerQuestion(2),
+              onPressed: () => _answerQuestion(2),
             ),
             RaisedButton(
               child: Text('Answer 3'),
-              onPressed: () => answerQuestion(3),
+              onPressed: () => _answerQuestion(3),
             ),
           ],
         ),
