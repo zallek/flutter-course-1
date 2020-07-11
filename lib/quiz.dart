@@ -7,16 +7,16 @@ class Quiz extends StatelessWidget {
   const Quiz({
     Key key,
     @required String questionText,
-    @required List<String> answers,
-    @required Function() onAnswerQuestion,
+    @required List<Map<String, Object>> answers,
+    @required Function(int score) onAnswerQuestion,
   })  : _questionText = questionText,
         _answers = answers,
         _onAnswerQuestion = onAnswerQuestion,
         super(key: key);
 
   final String _questionText;
-  final List<String> _answers;
-  final Function() _onAnswerQuestion;
+  final List<Map<String, Object>> _answers;
+  final Function(int score) _onAnswerQuestion;
 
   @override
   Widget build(BuildContext context) {
@@ -27,9 +27,9 @@ class Quiz extends StatelessWidget {
         ),
         ..._answers
             .map(
-              (answerText) => Answer(
-                answerText: answerText,
-                onClick: _onAnswerQuestion,
+              (answer) => Answer(
+                answerText: answer['text'],
+                onClick: () => _onAnswerQuestion(answer['score']),
               ),
             )
             .toList(),
