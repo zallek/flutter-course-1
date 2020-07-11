@@ -14,7 +14,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   var _questionIndex = 0;
-  var _questions = [
+  static const _questions = const [
     {
       'questionText': 'What\'s your favorite color?',
       'answers': ['Black', 'Red', 'Yellow', 'White'],
@@ -28,11 +28,11 @@ class _MyAppState extends State<MyApp> {
       'answers': ['Me', 'You', 'Chirac', 'Toto'],
     },
   ];
+  bool hasRemainingQuestions() => _questionIndex < _questions.length;
 
   void _answerQuestion() {
     setState(() {
-      _questionIndex =
-          _questionIndex >= _questions.length - 1 ? 0 : _questionIndex + 1;
+      _questionIndex = _questionIndex = _questionIndex + 1;
     });
   }
 
@@ -43,16 +43,20 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: Text('My First App'),
         ),
-        body: Column(
-          children: [
-            Question(
-              _questions[_questionIndex]['questionText'],
-            ),
-            ...(_questions[_questionIndex]['answers'] as List<String>)
-                .map((answer) => Answer(answer, _answerQuestion))
-                .toList()
-          ],
-        ),
+        body: hasRemainingQuestions()
+            ? Column(
+                children: [
+                  Question(
+                    _questions[_questionIndex]['questionText'],
+                  ),
+                  ...(_questions[_questionIndex]['answers'] as List<String>)
+                      .map((answer) => Answer(answer, _answerQuestion))
+                      .toList()
+                ],
+              )
+            : Center(
+                child: Text('You did it!'),
+              ),
       ),
     );
   }
