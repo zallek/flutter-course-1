@@ -1,7 +1,7 @@
-import 'package:course_1/answer.dart';
 import 'package:flutter/material.dart';
 
-import './question.dart';
+import 'quiz.dart';
+import 'result.dart';
 
 void main() {
   runApp(MyApp());
@@ -30,7 +30,7 @@ class _MyAppState extends State<MyApp> {
   ];
   bool hasRemainingQuestions() => _questionIndex < _questions.length;
 
-  void _answerQuestion() {
+  void _onAnswerQuestion() {
     setState(() {
       _questionIndex = _questionIndex = _questionIndex + 1;
     });
@@ -44,19 +44,12 @@ class _MyAppState extends State<MyApp> {
           title: Text('My First App'),
         ),
         body: hasRemainingQuestions()
-            ? Column(
-                children: [
-                  Question(
-                    _questions[_questionIndex]['questionText'],
-                  ),
-                  ...(_questions[_questionIndex]['answers'] as List<String>)
-                      .map((answer) => Answer(answer, _answerQuestion))
-                      .toList()
-                ],
+            ? Quiz(
+                questionText: _questions[_questionIndex]['questionText'],
+                answers: _questions[_questionIndex]['answers'],
+                onAnswerQuestion: _onAnswerQuestion,
               )
-            : Center(
-                child: Text('You did it!'),
-              ),
+            : Result(),
       ),
     );
   }
