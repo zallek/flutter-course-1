@@ -1,4 +1,4 @@
-# course_1
+# quiz
 
 A new Flutter project.
 

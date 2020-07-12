@@ -63,9 +63,10 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'Quiz',
       home: Scaffold(
         appBar: AppBar(
-          title: Text('My First App'),
+          title: Text('Quiz'),
         ),
         body: hasRemainingQuestions()
             ? Quiz(
